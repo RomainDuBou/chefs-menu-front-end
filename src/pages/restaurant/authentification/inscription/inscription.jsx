@@ -1,66 +1,51 @@
-export default function inscription(){
+import axios from "axios";
+import { useRef } from "react";
+import { Link } from "react-router-dom";
+import axiosClient from "../../../axiosClient";
+import { useStateContext } from "../../../../contexts/contextprovider";
+
+export default function register(){
+
+    const nameRef = useRef();
+    const emailRef = useRef();
+    const passwordRef = useRef();
+
+    const {setUser, setToken} = useStateContext();
+
+    const Submit =  (ev) =>{
+        ev.preventDefault();
+        const payload = {
+            name: nameRef.current.value,
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+        }
+        axiosClient.post("/register",payload).then(({data})=>{
+            setUser(data.user);
+            setToken(data.token);
+    }).catch(err => {
+        const response = err.response;
+        if(response && response.status === 422){
+            console.log(response.data.errors);
+        }
+    });
+}
+
     return(
-        <div>
-           Inscription
+        <div className="login-signup-form animated fadeinDown">
+            <div className="form">
+                <h1 className="title">
+                   Création d'un compte
+                </h1>
+                <form onSubmit={Submit}>
+                    <input ref={nameRef} type="name" placeholder="Name" />
+                    <input ref={emailRef} type="email" placeholder="Email" />
+                    <input ref={passwordRef} type="password" placeholder="Password" />
+                    <button className="btn btn-block">Register</button>
+                    <p className="message">
+                        Déjà un compte? <Link to= '/login'>Se connecter</Link>
+                    </p>
+                </form>
+            </div>
         </div>
     )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState } from "react";
-
-// export default function InscriptionForm() {
-//     const [name, setName] = useState("");
-//     const [email, setEmail] = useState("");
-//     const [password, setPassword] = useState("");
-
-//     const Inscription = async (e) => {
-//         e.preventDefault();
-
-//         const response = await fetch("http://localhost:8000/api/inscription", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 Accept: "application/json",
-//             },
-//             body: JSON.stringify({ name, email, password }),
-//         });
-
-//         if (response.status === 401) {
-//             alert("Email ou mot de passe incorrect");
-//             return;
-//         };
-
-//         if (response.status !== 200) {
-//             alert("Une erreur s'est produite");
-//             return;
-//         }
-//     };
-
-//     return (
-//         <div>
-//             <h2>Inscription</h2>
-//             <form onSubmit={Inscription}>
-//                 <input type="text" placeholder="Nom" name="name" value={name} onChange={(e) => setName(e.target.value)} />
-//                 <input type="email" placeholder="Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-//                 <input type="password" placeholder="Mot de passe" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-//                 <button type="submit">S'inscrire</button>
-//             </form>
-//         </div>
-//     );
-// }
