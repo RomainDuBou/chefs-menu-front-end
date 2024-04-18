@@ -8,7 +8,7 @@ export default function Home() {
     useEffect(() => {
         const fetchUserRestaurants = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/users/5/restaurants");
+                const response = await fetch("http://localhost:8000/api/users/1/restaurants");
                 if (!response.ok) {
                     throw new Error("Erreur lors de la recuperation des restaurants de l'utilisateur");
                 }
@@ -27,11 +27,12 @@ export default function Home() {
             <h1>Page d'accueil</h1>
             <h2>Restaurants de l'utilisateur:</h2>
             <ul>
-                {restaurants.map((restaurant) => (
+                {createdRestaurant.map((restaurant) => (
                     <li key={restaurant.id}>
                         <h3>{restaurant.nom}</h3>
                         <p>{restaurant.adresse}</p>
-                        {/* Ajoutez d'autres informations sur le restaurant si nécessaire */}
+                        <p>{restaurant.horaires_ouverture}</p>
+                        <img src={restaurant.image_illustration} alt="image d'illustration du restaurant"/>
                     </li>
                 ))}
                 </ul>
