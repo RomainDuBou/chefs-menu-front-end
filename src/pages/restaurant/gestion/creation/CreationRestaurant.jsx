@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../creation/CreationRestaurant.css";
 
-export default function CreationRestaurant() {
+export default function CreationRestaurant({ token }) {
     const [nom, setNom] = useState("");
     const [adresse, setAdresse] = useState("");
     const [horaires_ouverture, setHoraires_ouverture] = useState("");
@@ -10,14 +10,22 @@ export default function CreationRestaurant() {
     const creatRest = async (e) => {
         e.preventDefault();
 
-    
+        const formData = new FormData();
+        formData.append('nom', nom);
+        formData.append('adresse', adresse);
+        formData.append('horaires_ouverture', horaires_ouverture);
+        formData.append('image_illustration', image_illustration);
+
         try {
-            const response = await fetch("http://localhost:8001/api/restaurants", {
+            console.log("Token récupéré depuis le localStorage :", token);
+
+            const response = await fetch("http://localhost:8000/api/restaurants", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}` 
                 },
-                body: JSON.stringify({ nom, adresse, horaires_ouverture, image_illustration }),
+                body: formData
             });
             if (!response.ok) {
                 throw new Error("Erreur lors de la création du restaurant");

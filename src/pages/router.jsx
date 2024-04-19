@@ -1,9 +1,10 @@
 import {createBrowserRouter} from 'react-router-dom';
-import Login from '../pages/restaurant/authentification/connexion/connexion.jsx';
-import Register from '../pages/restaurant/authentification/inscription/inscription.jsx'
+import Login from '../pages/authentification/connexion/connexion.jsx';
+import Register from '../pages/authentification/inscription/inscription.jsx'
 import DefaultLayout from '../composants/defaultLayout.jsx'
 import GuestLayout from '../composants/guestLayout.jsx'
-import Users from '../pages/restaurant/authentification/users/users.jsx';
+import Users from '../pages/authentification/users/users.jsx';
+import CreationRestaurant from '../pages/restaurant/gestion/creation/CreationRestaurant.jsx';
 // import UserForm from './views/UserForm.jsx';
 
 const router = createBrowserRouter ([
@@ -23,6 +24,10 @@ const router = createBrowserRouter ([
                 path: '/users/:id',
                 // element: <UserForm key="userUpdate" />
             },
+            {
+                path: '/CreationRestaurant',
+                element: <CreationRestaurant/>
+            }
         ]
     },
 
