@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react"
 import { Link } from "react-router-dom";
-import axiosClient from "../../../pages/axiosClient";
+import axiosClient from "../../axiosClient";
 
 export default function users(){
     const [users, setUsers] = useState([]);

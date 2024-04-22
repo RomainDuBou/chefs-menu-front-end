@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axiosClient from "../../../axiosClient";
 import "../creation/CreationRestaurant.css";
+import axiosClient from "../../../axiosClient";
 
 export default function CreationRestaurant({ token }) {
     const [nom, setNom] = useState("");
@@ -19,11 +19,10 @@ export default function CreationRestaurant({ token }) {
 
         try {
             console.log("Token récupéré depuis le localStorage :", token);
-            
+
             const response = axiosClient.post("/restaurants", formData, {
                 withCredentials: true ,
             });
-
             if (!response.ok) {
                 throw new Error("Erreur lors de la création du restaurant");
             }

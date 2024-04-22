@@ -38,6 +38,7 @@ export default function Home({ token }) {
                         <p>{restaurant.adresse}</p>
                         <p>{restaurant.horaires_ouverture}</p>
                         <img src={restaurant.image_illustration} alt="image d'illustration du restaurant" />
+                        <button>Voir la carte</button>
                     </li>
                 ))}
             </ul>

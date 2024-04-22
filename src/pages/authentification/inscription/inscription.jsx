@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import axiosClient from "../../../pages/axiosClient";
+import axiosClient from "../../axiosClient";
 import { useStateContext } from "../../../contexts/contextprovider";
 
 export default function register(){
