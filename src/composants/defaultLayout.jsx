@@ -4,6 +4,8 @@ import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import axiosClient from "../pages/axiosClient";
 import { useStateContext } from "../contexts/contextprovider";
+import CreationRestaurant from "../pages/restaurant/gestion/creation/CreationRestaurant";
+import Home from "../pages/home/Home";
 
 export default function DefaultLayout(){
     const {user, token, setUser, setToken} = useStateContext();
@@ -40,7 +42,8 @@ export default function DefaultLayout(){
                 </div>
             </header>
             <main>
-            <Outlet />
+            <CreationRestaurant token={token}/>
+            <Home token={token}/>
             </main>
             </div>
         </div>

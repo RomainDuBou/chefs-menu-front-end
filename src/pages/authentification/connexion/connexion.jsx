@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import axiosClient from "../../../axiosClient";
-import { useStateContext } from "../../../../contexts/contextprovider";
+import axiosClient from "../../axiosClient";
+import { useStateContext } from "../../../contexts/contextprovider";
 
 export default function login() {
   const emailRef = useRef();
@@ -21,6 +21,7 @@ export default function login() {
       .then(({ data }) => {
         setUser(data.user);
         setToken(data.token);
+        localStorage.setItem("USER_ID", data.user.id);
       })
       .catch((err) => {
         const response = err.response;
@@ -38,7 +39,7 @@ export default function login() {
           <input ref={passwordRef} type="password" placeholder="Password" />
           <button className="btn btn-block">Connexion</button>
           <p className="message">
-            Pas encore de compte?{" "}
+            Pas encore de compte? <br/>
             <Link to="/register">Créer un nouveau compte</Link>
           </p>
         </form>
