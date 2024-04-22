@@ -1,25 +1,20 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axiosClient from "../axiosClient";
 
-export default function Home() {
+export default function Home({ token }) {
     const [createdRestaurant, setCreatedRestaurant] = useState([]);
-    const [accessToken, setAccessToken] = useState(null);
-
+    console.log(token)
     useEffect(() => {
-        const token = localStorage.getItem("ACCESS_TOKEN");
-        setAccessToken(token);
-
-        const fetchUserRestaurants = async () => {
+        const userRestaurants = async () => {
             try {
-                const response = await axiosClient.get(`/users/${user_id}/restaurants`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+                const response = await axiosClient.get("/restaurants", {
+                    withCredentials: true,
                 });
-                if (!response.ok) {
+                if (response.status !== 200) {
                     throw new Error("Erreur lors de la récupération des restaurants de l'utilisateur");
                 }
-                const data = await response.json();
+                console.log(response);
+                const data = await response.data;
                 setCreatedRestaurant(data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des restaurants de l'utilisateur", error.message);
@@ -27,9 +22,10 @@ export default function Home() {
         };
 
         if (token) {
-            fetchUserRestaurants();
+            userRestaurants();
         }
-    }, []);
+
+    }, [token]);
 
     return (
         <div className="homeContainer">
