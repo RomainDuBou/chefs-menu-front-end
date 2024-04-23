@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axiosClient from "../../../axiosClient";
 import "../modification/ModifRestaurant.css";
 import { useParams } from "react-router-dom";
@@ -36,21 +36,23 @@ export default function ModificationRestaurant() {
     const modify = async (e) => {
         e.preventDefault();
 
+        const formData = new FormData();
+        formData.append('nom', nom);
+        formData.append('adresse', adresse);
+        formData.append('horaires_ouverture', horaires_ouverture);
+        formData.append('image_illustration', image_illustration);
+        formData.append('_method','PUT');
+
         try {
-            const response = await fetch(`http://localhost:8000/api/restaurants/${id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ nom, adresse, horaires_ouverture, image_illustration }),
+            const response = await axiosClient.post(`/restaurants/${id}`, formData, {
+                headers: 'authorization/json',
+                withCredentials: true,
             });
-            if (!response.ok) {
+            if (response.status === 200) {
+                console.log("Restaurant modifié avec succès");
+            } else {
                 throw new Error("Erreur lors de la modification du restaurant");
             }
-
-            const data = await response.json();
-            console.log("Restaurant modifié avec succès:", data);
-            
         } catch (error) {
             console.error("Erreur lors de la modification du restaurant:", error.message);
         }

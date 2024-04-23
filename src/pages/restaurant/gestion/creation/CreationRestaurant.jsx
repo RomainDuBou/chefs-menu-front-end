@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "../creation/CreationRestaurant.css";
+import "./CreationRestaurant.css";
 import axiosClient from "../../../axiosClient";
 
-export default function CreationRestaurant({ token }) {
+export default function CreationRestaurant() {
     const [nom, setNom] = useState("");
     const [adresse, setAdresse] = useState("");
     const [horaires_ouverture, setHoraires_ouverture] = useState("");

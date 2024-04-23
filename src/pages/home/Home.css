@@ -1,5 +1,32 @@
 .restaurantContainer {
     display: flex;
     flex-wrap: wrap;
-    gap: 50px;
+}
+
+.fiche {
+    margin: 50px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 1px 1px 1px rgb(196, 196, 196);
+    width: 25%;
+    align-items: center;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 10px;
+}
+
+#btn {
+    background-color: rgb(196, 196, 196);
+    border-style: none;
+    padding: 7px;
+    color: white;
+    border-radius: 10px;
+}
+
+#btn:hover {
+    transition: 0.5s;
+    background-color: rgb(0, 0, 0);
 }
