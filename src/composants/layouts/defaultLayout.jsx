@@ -2,10 +2,9 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { Link, Navigate, Outlet } from "react-router-dom";
-import axiosClient from "../pages/axiosClient";
-import { useStateContext } from "../contexts/contextprovider";
-import Home from "../pages/home/Home";
-import CreationRestaurant from "../pages/restaurant/gestion/creation/CreationRestaurant";
+import axiosClient from "../../pages/axiosClient";
+import { useStateContext } from "../../contexts/contextprovider";
+import Home from "../../pages/home/Home";
 
 export default function DefaultLayout(){
     const {user, token, setUser, setToken} = useStateContext();
@@ -32,7 +31,6 @@ export default function DefaultLayout(){
              setUser(data)
           })
       }, [token]) 
-      console.log(token);
 
     return(
         <div id="defaultLayout">
@@ -47,8 +45,6 @@ export default function DefaultLayout(){
                 </div>
             </header>
             <main>
-                <CreationRestaurant token={token} />
-                
                 <Home token={token}/>
             </main>
         </div>

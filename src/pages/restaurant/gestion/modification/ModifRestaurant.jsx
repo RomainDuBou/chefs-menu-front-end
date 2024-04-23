@@ -1,17 +1,21 @@
 import { useState, useEffect } from "react";
-import "../modification/ModificationRestaurant.css";
+import axiosClient from "../../../axiosClient";
+import "../modification/ModifRestaurant.css";
+import { useParams } from "react-router-dom";
 
-export default function ModificationRestaurant({ restaurant }) {
+export default function ModificationRestaurant() {
     const [nom, setNom] = useState("");
     const [adresse, setAdresse] = useState("");
     const [horaires_ouverture, setHoraires_ouverture] = useState("");
     const [image_illustration, setImage_illustration] = useState(null);
 
+    const { id } = useParams(); 
+
     useEffect(() => {
         async function fetchRestaurant() {
             try {
-                const response = axiosClient.post("/restaurants/{id}", {
-                    withCredentials: true ,
+                const response = await axiosClient.get(`/restaurants/${id}`, {
+                    withCredentials: true,
                 });
                 if (!response.ok) {
                     throw new Error("Erreur lors de la récupération des données du restaurant");
@@ -27,9 +31,9 @@ export default function ModificationRestaurant({ restaurant }) {
         }
 
         fetchRestaurant();
-    }, [restaurantId]);
+    }, [id]);
 
-    const modifyRest = async (e) => {
+    const modify = async (e) => {
         e.preventDefault();
 
         try {
@@ -58,7 +62,7 @@ export default function ModificationRestaurant({ restaurant }) {
 
     return (
         <div>
-            <form onSubmit={modifyRest}>
+            <form onSubmit={modify}>
                 <div className="modifyRestContainer">
                     <h2>Modification du restaurant</h2>
                     <input

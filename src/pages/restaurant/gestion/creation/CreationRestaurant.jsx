@@ -18,8 +18,6 @@ export default function CreationRestaurant({ token }) {
         formData.append('image_illustration', image_illustration);
 
         try {
-            console.log("Token récupéré depuis le localStorage :", token);
-
             const response = axiosClient.post("/restaurants", formData, {
                 withCredentials: true ,
             });
