@@ -3,10 +3,11 @@ import "./CreationRestaurant.css";
 import Header from "../../../../composants/header/Header";
 import axiosClient from "../../../axiosClient";
 import { useStateContext } from "../../../../contexts/contextprovider";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function CreationRestaurant() {
 
+    const navigate = useNavigate();
     const {user, token, setUser, setToken} = useStateContext();
     if(!token){
        return <Navigate to='/login'/>
@@ -40,6 +41,9 @@ export default function CreationRestaurant() {
         } catch (error) {
             console.error("Erreur lors de la création du restaurant:", error.message);
         }
+        alert("Restaurant créé avec succés !")
+            navigate("/");
+        
     };
 
     const handleFileChange = (e) => {
@@ -52,6 +56,7 @@ export default function CreationRestaurant() {
             <form onSubmit={creatRest}>
                 <div className="creatRestContainer">
                     <h2>Création d'un restaurant</h2>
+                    <div className="underline"></div>
                     <input
                         type="text"
                         value={nom}
@@ -78,7 +83,7 @@ export default function CreationRestaurant() {
                         onChange={handleFileChange}
                         required 
                     />
-                    <button type="submit">Créer le restaurant</button>
+                    <button type="submit" className="btn">Créer le restaurant</button>
                 </div>
             </form>
         </div>

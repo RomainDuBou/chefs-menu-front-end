@@ -1,0 +1,10 @@
+header {
+    display: flex;
+    justify-content: center;
+}
+
+.headerContainer {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}

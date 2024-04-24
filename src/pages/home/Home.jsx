@@ -60,8 +60,10 @@ export default function Home() {
                 <Header/>
                 <div className="entete">
                     <h2>Vos Restaurant</h2>
+                    <div className="underlineHome"></div>
                     <div className="enteteBtn">
                         <Link to="/CreationRestaurant"><button className="btn">Créer un restaurant</button></Link>
+                        <Link to="/CreationProduit"><button className="btn">Ajouter un produit</button></Link>
                     </div>
                 </div>
                 <div className="restaurantContainer">
@@ -70,12 +72,12 @@ export default function Home() {
                         <img src={`http://localhost:8000/${restaurant.image_illustration}`} alt="Image d'illustration du restaurant" />
                             <div>
                                 <h3>{restaurant.nom}</h3>
-                                <p>{restaurant.adresse}</p>
-                                <p>{restaurant.horaires_ouverture}</p>
+                                <p>Adresse : {restaurant.adresse}</p>
+                                <p>horaires : {restaurant.horaires_ouverture}</p>
                             <div className="buttonContainer">
                                 <Link to={"/ModificationRestaurant/" + restaurant.id}><button className="btn">Modifier</button></Link>
                                 <button onClick={() => deleteButton(restaurant.id)} className="btn">Supprimer</button>
-                                <button className="btn">Voir la carte</button>
+                                <Link to={`/CarteRestaurant/${restaurant.id}/produits`}><button className="btn">Voir la carte</button></Link>
                             </div>
                         </div>
                         </div> 

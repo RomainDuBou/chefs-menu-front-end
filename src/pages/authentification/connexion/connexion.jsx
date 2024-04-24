@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../../axiosClient";
 import { useStateContext } from "../../../contexts/contextprovider";
 import { redirect } from "react-router-dom";
 
 export default function login() {
+  const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -27,9 +28,9 @@ export default function login() {
         const response = err.response;
         if (response && response.status === 422) {
           console.log(response.data.errors);
-        }
+        } 
       });
-
+      navigate("/");
   };
   return (
     <div className="login-signup-form animated fadeinDown">

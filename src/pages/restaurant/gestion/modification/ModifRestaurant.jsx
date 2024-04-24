@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axiosClient from "../../../axiosClient";
 import "../modification/ModifRestaurant.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../../../../composants/header/Header";
 
 export default function ModificationRestaurant() {
@@ -10,6 +10,7 @@ export default function ModificationRestaurant() {
     const [horaires_ouverture, setHoraires_ouverture] = useState("");
     const [image_illustration, setImage_illustration] = useState(null);
 
+    const navigate = useNavigate();
     const { id } = useParams(); 
 
     useEffect(() => {
@@ -50,7 +51,8 @@ export default function ModificationRestaurant() {
                 withCredentials: true,
             });
             if (response.status === 200) {
-                console.log("Restaurant modifié avec succès");
+                alert("Restaurant modifié avec succés !")
+                navigate("/");
             } else {
                 throw new Error("Erreur lors de la modification du restaurant");
             }
@@ -63,12 +65,14 @@ export default function ModificationRestaurant() {
         setImage_illustration(e.target.files[0]);
     };
 
+
     return (
         <div>
             <Header/>
             <form onSubmit={modify}>
                 <div className="modifyRestContainer">
                     <h2>Modification du restaurant</h2>
+                    <div className="underline"></div>
                     <input
                         type="text"
                         value={nom}
@@ -94,7 +98,7 @@ export default function ModificationRestaurant() {
                         type="file" 
                         onChange={handleFileChange}
                     />
-                    <button type="submit">Modifier le restaurant</button>
+                    <button type="submit" className="btn">Modifier le restaurant</button>
                 </div>
             </form>
         </div>

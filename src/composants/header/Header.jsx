@@ -2,6 +2,7 @@ import { Navigate } from "react-router-dom";
 import axiosClient from "../../pages/axiosClient";
 import { Link } from "react-router-dom";
 import { useStateContext } from "../../contexts/contextprovider";
+import "../header/Header.css"
 
 export default function Header() {
 
@@ -20,10 +21,9 @@ export default function Header() {
     }
     return (
         <header>
-            <div>
-                {user.name}
+            <div className="headerContainer">
+                <Link to="/"><button className="btn">Home</button></Link>
                 <a href="#" onClick={onLogout} className="btn-logout"> Logout</a>
-                <Link to="/"><button>Home</button></Link>
             </div>
         </header>
     )
