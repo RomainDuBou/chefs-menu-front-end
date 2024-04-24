@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axiosClient from "../../../axiosClient";
 import "../modification/ModifRestaurant.css";
 import { useParams } from "react-router-dom";
+import Header from "../../../../composants/header/Header";
 
 export default function ModificationRestaurant() {
     const [nom, setNom] = useState("");
@@ -64,6 +65,7 @@ export default function ModificationRestaurant() {
 
     return (
         <div>
+            <Header/>
             <form onSubmit={modify}>
                 <div className="modifyRestContainer">
                     <h2>Modification du restaurant</h2>

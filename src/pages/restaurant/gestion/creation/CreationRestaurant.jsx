@@ -1,8 +1,17 @@
 import { useState } from "react";
 import "./CreationRestaurant.css";
+import Header from "../../../../composants/header/Header";
 import axiosClient from "../../../axiosClient";
+import { useStateContext } from "../../../../contexts/contextprovider";
+import { Navigate } from "react-router-dom";
 
 export default function CreationRestaurant() {
+
+    const {user, token, setUser, setToken} = useStateContext();
+    if(!token){
+       return <Navigate to='/login'/>
+    }
+
     const [nom, setNom] = useState("");
     const [adresse, setAdresse] = useState("");
     const [horaires_ouverture, setHoraires_ouverture] = useState("");
@@ -39,6 +48,7 @@ export default function CreationRestaurant() {
 
     return (
         <div>
+            <Header/>
             <form onSubmit={creatRest}>
                 <div className="creatRestContainer">
                     <h2>Création d'un restaurant</h2>

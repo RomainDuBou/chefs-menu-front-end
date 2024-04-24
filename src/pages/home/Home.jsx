@@ -4,6 +4,7 @@ import "../home/Home.css";
 import { Link } from "react-router-dom";
 import { useStateContext } from "../../contexts/contextprovider";
 import { Navigate } from "react-router-dom";
+import Header from "../../composants/header/Header";
 
 export default function Home() {
 
@@ -12,26 +13,6 @@ export default function Home() {
        return <Navigate to='/login'/>
     }
     
-    const onLogout =  (ev) =>{
-        ev.preventDefault();
-        axiosClient.get('/logout')
-        .then(({}) => {
-           setUser(null)
-           setToken(null)
-        })
-    }
-
-    useEffect(() => {
-        axiosClient.get('/user', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-          .then(({data}) => {
-             setUser(data)
-          })
-      }, [token])
-
     const [createdRestaurant, setCreatedRestaurant] = useState([]);
 
     useEffect(() => {
@@ -76,23 +57,25 @@ export default function Home() {
 
     return (
             <div className="homeContainer">
-                    <div>
-                        {user.name}
-                        <a href="#" onClick={onLogout} className="btn-logout"> Logout</a>
+                <Header/>
+                <div className="entete">
+                    <h2>Vos Restaurant</h2>
+                    <div className="enteteBtn">
+                        <Link to="/CreationRestaurant"><button className="btn">Créer un restaurant</button></Link>
                     </div>
-                <h2>Vos Restaurant</h2>
-                <Link to="/CreationRestaurant"><button>Créer un restaurant</button></Link>
+                </div>
                 <div className="restaurantContainer">
                     {createdRestaurant.map((restaurant) => (
                         <div key={restaurant.id} className="fiche">
-                            <img src={restaurant.image_illustration} alt="image d'illustration du restaurant" />
+                        <img src={`http://localhost:8000/${restaurant.image_illustration}`} alt="Image d'illustration du restaurant" />
                             <div>
                                 <h3>{restaurant.nom}</h3>
                                 <p>{restaurant.adresse}</p>
                                 <p>{restaurant.horaires_ouverture}</p>
                             <div className="buttonContainer">
-                                <Link to={"/ModificationRestaurant/" + restaurant.id}><button id="btn">Modifier</button></Link>
-                                <button onClick={() => deleteButton(restaurant.id)} id="btn">Supprimer</button>
+                                <Link to={"/ModificationRestaurant/" + restaurant.id}><button className="btn">Modifier</button></Link>
+                                <button onClick={() => deleteButton(restaurant.id)} className="btn">Supprimer</button>
+                                <button className="btn">Voir la carte</button>
                             </div>
                         </div>
                         </div> 
