@@ -205,7 +205,7 @@ table > tbody > tr > td {
     flex: 1;
 }
 
-#defaultLayout header {
+    header {
     height: 80px;
     padding: 2rem 3rem;
     background-color: white;
@@ -241,3 +241,4 @@ table > tbody > tr > td {
         transform: translateY(0);
     }
 }
+

@@ -1,14 +1,15 @@
-import axios from "axios";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Ajout de Navigate
 import axiosClient from "../../axiosClient";
 import { useStateContext } from "../../../contexts/contextprovider";
+import { useNavigate } from "react-router-dom";
 
-export default function login() {
+export default function Login() { 
   const emailRef = useRef();
   const passwordRef = useRef();
 
   const { setUser, setToken } = useStateContext();
+  const navigate = useNavigate();
 
   const Submit = (ev) => {
     ev.preventDefault();
@@ -22,6 +23,7 @@ export default function login() {
         setUser(data.user);
         setToken(data.token);
         localStorage.setItem("USER_ID", data.user.id);
+        navigate('/');
       })
       .catch((err) => {
         const response = err.response;

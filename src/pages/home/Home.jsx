@@ -1,47 +1,106 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../axiosClient";
+import { Link, Navigate } from "react-router-dom"; // Importe Navigate
+import { useStateContext } from "../../contexts/contextprovider";
+import Header from "../../composants/header/Header";
+import "./Home.css";
 
-export default function Home({ token }) {
-    const [createdRestaurant, setCreatedRestaurant] = useState([]);
-    console.log(token)
-    useEffect(() => {
-        const userRestaurants = async () => {
-            try {
-                const response = await axiosClient.get("/restaurants", {
-                    withCredentials: true,
-                });
-                if (response.status !== 200) {
-                    throw new Error("Erreur lors de la récupération des restaurants de l'utilisateur");
-                }
-                console.log(response);
-                const data = await response.data;
-                setCreatedRestaurant(data);
-            } catch (error) {
-                console.error("Erreur lors de la récupération des restaurants de l'utilisateur", error.message);
-            }
-        };
+export default function Home() {
+  const { user, token, setUser, setToken } = useStateContext(); // Supprime token
 
-        if (token) {
-            userRestaurants();
+  const [createdRestaurant, setCreatedRestaurant] = useState([]);
+
+  useEffect(() => {
+    const userRestaurants = async () => {
+      try {
+        const response = await axiosClient.get("/restaurants", {
+          withCredentials: true,
+        });
+        if (response.status !== 200) {
+          throw new Error(
+            "Erreur lors de la récupération des restaurants de l'utilisateur"
+          );
         }
+        console.log(response);
+        const data = await response.data;
+        setCreatedRestaurant(data);
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des restaurants de l'utilisateur",
+          error.message
+        );
+      }
+    };
 
-    }, [token]);
+    userRestaurants();
+  }, [token]);
 
-    return (
-        <div className="homeContainer">
-            <h1>Page d'accueil</h1>
-            <h2>Restaurants de l'utilisateur :</h2>
-            <ul>
-                {createdRestaurant.map((restaurant) => (
-                    <li key={restaurant.id}>
-                        <h3>{restaurant.nom}</h3>
-                        <p>{restaurant.adresse}</p>
-                        <p>{restaurant.horaires_ouverture}</p>
-                        <img src={restaurant.image_illustration} alt="image d'illustration du restaurant" />
-                        <button>Voir la carte</button>
-                    </li>
-                ))}
-            </ul>
+  function deleteButton(id) {
+    const deleteRestaurant = async (restaurantId) => {
+      try {
+        const response = await axiosClient.delete(
+          `/restaurants/${restaurantId}`,
+          {
+            withCredentials: true,
+          }
+        );
+        if (response.status === 200) {
+          setCreatedRestaurant((prevState) =>
+            prevState.filter((restaurant) => restaurant.id !== restaurantId)
+          );
+        }
+      } catch (error) {
+        console.error(
+          "Erreur lors de la suppression du restaurant de l'utilisateur"
+        );
+      }
+    };
+    deleteRestaurant(id);
+  }
+
+  return (
+    <div className="homeContainer">
+      <Header />
+      <div className="entete">
+        <h2>Vos Restaurant</h2>
+        <div className="enteteBtn">
+          <Link to="/CreationRestaurant">
+            <button className="btn">Créer un restaurant</button>
+          </Link>
+          <Link to="/CreationProduit">
+            <button className="btn">Ajouter un produit</button>
+          </Link>
         </div>
-    );
+      </div>
+      <div className="restaurantContainer">
+        {createdRestaurant.map((restaurant) => (
+          <div key={restaurant.id} className="fiche">
+            <img
+              src={`http://localhost:8000/${restaurant.image_illustration}`}
+              alt="Image d'illustration du restaurant"
+            />
+            <div>
+              <h3>{restaurant.nom}</h3>
+              <p>{restaurant.adresse}</p>
+              <p>{restaurant.horaires_ouverture}</p>
+              <div className="buttonContainer">
+                <Link to={"/ModificationRestaurant/" + restaurant.id}>
+                  <button className="btn">Modifier</button>
+                </Link>
+                <button
+                  onClick={() => deleteButton(restaurant.id)}
+                  className="btn"
+                >
+                  Supprimer
+                </button>
+                <Link to={`/CarteRestaurant/${restaurant.id}/produits`} >
+                <button className="btn">Voir la carte</button>
+                  </Link>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }

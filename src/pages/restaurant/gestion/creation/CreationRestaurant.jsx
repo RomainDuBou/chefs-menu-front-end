@@ -43,7 +43,7 @@ export default function CreationRestaurant({ token }) {
         <div>
             <form onSubmit={creatRest}>
                 <div className="creatRestContainer">
-                    <h2>Création d'un restaurant</h2>
+                    <h2>Créer un nouveau restaurant</h2>
                     <input
                         type="text"
                         value={nom}
