@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axiosClient from "../../pages/axiosClient";``
 import { Link, Navigate } from "react-router-dom"; // Importe Navigate
 import { useStateContext } from "../../contexts/contextprovider";
+import "./Header.css"
 
 export default function Header() {
   const { user, token, setUser, setToken } = useStateContext(); // Supprime token
@@ -24,15 +25,12 @@ export default function Header() {
   };
 
   return (
-        <header>
-          <div>Header</div>
-          <div>
+    <header>
+        <div className="headerContainer">
             {user.name}
-            <a href="#" onClick={onLogout} className="btn-logout">
-              {" "}
-              Logout
-            </a>
-          </div>
-        </header>
-  );
+            <Link to="/" className="homeBtn"><button className="btn">Home</button></Link>
+            <a href="#" onClick={onLogout} className="btn-logout"> Logout</a>
+        </div>
+    </header>
+)
 }

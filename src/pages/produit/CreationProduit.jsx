@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"; // Ajout de React
 import axiosClient from "../axiosClient";
 import Header from "../../composants/header/Header";
+import "./CreationProduit.css"
 
 export default function CreationProduit() {
   const [nom, setNom] = useState("");

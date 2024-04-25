@@ -1,4 +1,4 @@
-.modifyRestContainer {
+.createProductContainer {
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -9,18 +9,18 @@
     padding: 30px;
 }
 
-.modifyRestContainer h2 {
-text-align: center;
+.createProductContainer h2 {
+    text-align: center;
 }
 
-.modifyRestContainer button {
-margin: auto;
-width: 30%;
+.createProductContainer button {
+    margin: auto;
+    width: 30%;
 }
 
 .underline {
-margin: auto;
-background: #5b08a7;
-height: 3px;
-width: 60%;
+    margin:  auto;
+    background: #5b08a7;
+    height: 3px;
+    width: 60%;
 }
