@@ -1,3 +1,5 @@
+import "../boutonRetour/BoutonRetour.css";
+
 import { useNavigate } from "react-router-dom"
 
 export default function BoutonRetour() {
@@ -6,7 +8,7 @@ export default function BoutonRetour() {
 
     return (
         <div className="returnContainer">
-            <button onClick={() => navigate(-1)}>Retour</button>
+            <button onClick={() => navigate(-1)} className="btn">←</button>
         </div>
     )
 }

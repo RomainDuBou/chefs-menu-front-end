@@ -43,8 +43,14 @@ function CarteRestaurant() {
         }
         const restaurantData = await response.data;
         if (restaurantData.length > 0) {
-          const nomRestaurant = restaurantData[0];
-          setRestaurantNom(nomRestaurant.nom)
+          if (restaurantData[1]) {
+            const nomRestaurant = restaurantData[1];
+            setRestaurantNom(nomRestaurant.nom)
+          } else {
+            const nomRestaurant = restaurantData[0];
+            setRestaurantNom(nomRestaurant.nom)
+          }
+          
         }
         
       } catch (error) {
@@ -85,8 +91,8 @@ function CarteRestaurant() {
         <h1>Carte - {restaurantNom}</h1>
         <div className="underlineCarte"></div>
         <div className="enteteBtn">
-          <BoutonRetour/>
           <Link to="/CreationProduit"><button className="btn">Ajouter un produit</button></Link>
+          <BoutonRetour/>
         </div>
         {Object.entries(produitsTries).map(([categorie, produitsCategorie]) => (
           <div className="menu">
@@ -95,11 +101,6 @@ function CarteRestaurant() {
               <div className="menu-group">
                 {produitsCategorie.map((produit) => (
                   <div className="menu-item">
-                    {/* <img
-                      src="https://dummyimage.com/600x400/000/fff"
-                      alt="Black Placeholder Image"
-                      className="menu-item-img"
-                    /> */}
                     <div className="menu-item-text">
                       <p key={produit.id}>
                         <h3 className="menu-item-heading">

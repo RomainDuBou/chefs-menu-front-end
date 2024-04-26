@@ -12,6 +12,11 @@
   margin: 5px;
 }
 
+.enteteBtn {
+  display: flex;
+  justify-content: space-between;
+}
+
 .underlineCarte {
   margin:  auto;
   background: #5b08a7;
