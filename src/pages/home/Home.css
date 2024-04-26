@@ -9,7 +9,7 @@
     height: 200px;
 }
 
-.entete h2 {
+.entete h1 {
     margin: 50px 0 10px;
     text-align: center;
 }
@@ -37,6 +37,12 @@
     align-items: center;
     padding: 20px;
     border-radius: 5px;
+}
+
+.detailRestaurant {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .fiche h3 {

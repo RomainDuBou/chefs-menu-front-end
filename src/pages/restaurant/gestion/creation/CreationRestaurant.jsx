@@ -4,6 +4,7 @@ import Header from "../../../../composants/header/Header";
 import axiosClient from "../../../axiosClient";
 import { useStateContext } from "../../../../contexts/contextprovider";
 import { Navigate, useNavigate } from "react-router-dom";
+import BoutonRetour from "../../../../composants/boutonRetour/BoutonRetour";
 
 export default function CreationRestaurant() {
 
@@ -53,6 +54,7 @@ export default function CreationRestaurant() {
     return (
         <div>
             <Header/>
+            <BoutonRetour/>
             <form onSubmit={creatRest}>
                 <div className="creatRestContainer">
                     <h2>Création d'un restaurant</h2>

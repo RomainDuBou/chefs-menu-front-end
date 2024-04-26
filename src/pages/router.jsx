@@ -1,5 +1,6 @@
 import {createBrowserRouter} from 'react-router-dom';
 import Login from '../pages/authentification/connexion/connexion.jsx';
+import Register from '../pages/authentification/inscription/inscription.jsx'
 import CreationRestaurant from '../pages/restaurant/gestion/creation/CreationRestaurant.jsx';
 import ModifRestaurant from '../pages/restaurant/gestion/modification/ModifRestaurant.jsx';
 import Home from './home/Home.jsx';
@@ -23,6 +24,10 @@ const router = createBrowserRouter ([
     {
         path: '/login',
         element: <Login/>
+    },
+    {
+        path: '/register',
+        element: <Register/>
     },
     {
         path: '/CreationProduit',

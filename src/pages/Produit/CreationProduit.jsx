@@ -1,19 +1,19 @@
+import "../Produit/CreationProduit.css"
+import BoutonRetour from "../../composants/boutonRetour/BoutonRetour";
 import React, { useState, useEffect } from "react";
 import axiosClient from "../axiosClient";
 import Header from "../../composants/header/Header";
 import { useNavigate } from "react-router-dom";
-import "../Produit/CreationProduit.css"
 
 export default function CreationProduit() {
   const [nom, setNom] = useState("");
-  const [categorie, setCategorie] = useState("entree");
+  const [categorie, setCategorie] = useState("");
+  const [description, setDescription] = useState("");
   const [prix_HT, setPrix_HT] = useState("");
   const [taux_TVA, setTaux_TVA] = useState("");
   const [prix_TTC, setPrix_TTC] = useState(""); 
   const [restaurants, setRestaurants] = useState([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState("");
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserRestaurants = async () => {
@@ -38,6 +38,16 @@ export default function CreationProduit() {
     fetchUserRestaurants();
   }, []);
 
+  const resetForm = () => {
+    setNom("");
+    setCategorie("");
+    setDescription("");
+    setPrix_HT("");
+    setPrix_TTC("");
+    setTaux_TVA("");
+    setSelectedRestaurant("");
+  }
+
   const createProduct = async (e) => {
     e.preventDefault();
 
@@ -47,6 +57,7 @@ export default function CreationProduit() {
     const formData = new FormData();
     formData.append("nom", nom);
     formData.append("categorie", categorie);
+    formData.append("description", description);
     formData.append("prix_HT", prix_HT);
     formData.append("taux_TVA", taux_TVA);
     formData.append("prix_TTC", prixTTC); 
@@ -64,6 +75,7 @@ export default function CreationProduit() {
         throw new Error("Erreur lors de la création du produit");
       } else {
           alert("Produit créé avec succès");
+          resetForm();
       }
 
       const data = await response.data; 
@@ -76,11 +88,35 @@ export default function CreationProduit() {
   return (
     <div>
       <Header />
+      <div className="produitBtnRetour">
+        <BoutonRetour/>
+      </div>
       <div className="createProduct">
         <form onSubmit={createProduct}>
           <div className="createProductContainer">
             <h2>Ajouter un produit à la carte d'un restaurant</h2>
             <div className="underline"></div>
+            <select
+              value={selectedRestaurant}
+              onChange={(e) => setSelectedRestaurant(e.target.value)}
+            >
+              <option value="">Sélectionner un restaurant</option>
+              {restaurants.map((restaurant) => (
+                <option key={restaurant.id} value={restaurant.id}>
+                  {restaurant.nom}
+                </option>
+              ))}
+            </select>
+            <select
+              value={categorie}
+              onChange={(e) => setCategorie(e.target.value)}
+            >
+              <option>Type</option>
+              <option value="entrees">Entrées</option>
+              <option value="plats">Plats</option>
+              <option value="desserts">Desserts</option>
+              <option value="boissons">Boissons</option>
+            </select>
             <input
               type="text"
               value={nom}
@@ -88,16 +124,6 @@ export default function CreationProduit() {
               placeholder="Nom du produit"
               required
             />
-            <select
-              value={categorie}
-              onChange={(e) => setCategorie(e.target.value)}
-            >
-              <option></option>
-              <option value="entree">Entrée</option>
-              <option value="plats">Plats</option>
-              <option value="desserts">Desserts</option>
-              <option value="boissons">Boissons</option>
-            </select>
             <input
               type="number"
               value={prix_HT}
@@ -119,17 +145,12 @@ export default function CreationProduit() {
               readOnly
               placeholder="Prix TTC"
             />
-            <select
-              value={selectedRestaurant}
-              onChange={(e) => setSelectedRestaurant(e.target.value)}
-            >
-              <option value="">Sélectionner un restaurant</option>
-              {restaurants.map((restaurant) => (
-                <option key={restaurant.id} value={restaurant.id}>
-                  {restaurant.nom}
-                </option>
-              ))}
-            </select>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Description"
+              required
+            ></textarea>
             <button type="submit" className="btn">Créer le produit</button>
           </div>
         </form>

@@ -1,14 +1,21 @@
-import React, { useState, useEffect } from "react";
-import axiosClient from "../../axiosClient";
-import { useParams } from "react-router-dom"; 
-import "./CarteRestaurant.css";
 import Header from "../../../composants/header/Header";
+import axiosClient from "../../axiosClient";
+import BoutonRetour from "../../../composants/boutonRetour/BoutonRetour";
+import "./CarteRestaurant.css";
+
+import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import QrCodeGenerator from "../../../composants/QRcode/QrCodeGenerator";
 
 
 function CarteRestaurant() {
   const [produits, setProduits] = useState([]);
+  const [restaurantNom, setRestaurantNom] = useState("");
   const { id } = useParams(); 
+  const navigate = useNavigate();
+  
 
   useEffect(() => {
     const fetchProduits = async () => {
@@ -26,7 +33,27 @@ function CarteRestaurant() {
       }
     };
 
+    const fetchRestaurant = async () => {
+      try {
+        const response = await axiosClient.get(`restaurants/${id}`, {
+          withCredentials: true,
+        });
+        if (response.status !== 200) {
+          throw new Error ("Erreur lors de la recupération des détails du restaurants.")
+        }
+        const restaurantData = await response.data;
+        if (restaurantData.length > 0) {
+          const nomRestaurant = restaurantData[0];
+          setRestaurantNom(nomRestaurant.nom)
+        }
+        
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
     fetchProduits();
+    fetchRestaurant();
   }, [id]); 
 
   const produitsTries = produits.reduce((acc, produit) => {
@@ -42,7 +69,7 @@ function CarteRestaurant() {
                 withCredentials: true,
             });
             if (response.status === 200) {
-                setCreatedProduct(prevState => prevState.filter(produit => produit.id !== produitId));
+                setProduits(prevProduct => prevProduct.filter(produit => produit.id !== produitId));
 
             }
         } catch (error) {
@@ -55,7 +82,12 @@ function CarteRestaurant() {
     <div>
       <Header/>
       <main className="containerCarte">
-        <h2>Produits du restaurant</h2>
+        <h1>Carte - {restaurantNom}</h1>
+        <div className="underlineCarte"></div>
+        <div className="enteteBtn">
+          <BoutonRetour/>
+          <Link to="/CreationProduit"><button className="btn">Ajouter un produit</button></Link>
+        </div>
         {Object.entries(produitsTries).map(([categorie, produitsCategorie]) => (
           <div className="menu">
             <div key={categorie}>
@@ -63,11 +95,11 @@ function CarteRestaurant() {
               <div className="menu-group">
                 {produitsCategorie.map((produit) => (
                   <div className="menu-item">
-                    <img
+                    {/* <img
                       src="https://dummyimage.com/600x400/000/fff"
                       alt="Black Placeholder Image"
-                      class="menu-item-img"
-                    />
+                      className="menu-item-img"
+                    /> */}
                     <div className="menu-item-text">
                       <p key={produit.id}>
                         <h3 className="menu-item-heading">
@@ -75,11 +107,10 @@ function CarteRestaurant() {
                           <span className="menu-item-name">{produit.prix_TTC} € </span>
                         </h3>
                         <p className="menu-item-desc">
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Perferendis, voluptatem?
+                          {produit.description}
                         </p>
                       </p>
-                      <button onClick={() => deleteButton(produit.id)}>supprimer</button>
+                      <button onClick={() => deleteButton(produit.id)} className="btn" id="carteBtn">Supprimer</button>
                     </div>
                   </div>
                 ))}

@@ -7,22 +7,37 @@
   padding: 1.5em;
 }
 
+.containerCarte h1 {
+  text-align: center;
+  margin: 5px;
+}
+
+.underlineCarte {
+  margin:  auto;
+  background: #5b08a7;
+  height: 3px;
+  width: 30%;
+}
+
 .menu {
   font-family: sans-serif;
   font-size: 14px;
 }
 
 .menu-group-heading {
-  margin: 0;
+  text-align: center;
+  margin-top: 50px;
   padding-bottom: 1em;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid #5b08a7;
 }
 
 .menu-group {
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5em;
-  padding: 1.5em 0;
+  padding: 1em;
 }
 
 .menu-item {
@@ -53,6 +68,10 @@
 
 .menu-item-desc {
   line-height: 1.6;
+}
+
+#carteBtn {
+  margin-top: 10px;
 }
 
 @media screen and (min-width: 992px) {

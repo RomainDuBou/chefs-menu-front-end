@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useStateContext } from "../../contexts/contextprovider";
 import { Navigate } from "react-router-dom";
 import Header from "../../composants/header/Header";
+import Footer from "../../composants/footer/Footer";
 
 export default function Home() {
 
@@ -59,11 +60,10 @@ export default function Home() {
             <div className="homeContainer">
                 <Header/>
                 <div className="entete">
-                    <h2>Vos Restaurant</h2>
+                    <h1>Vos restaurant</h1>
                     <div className="underlineHome"></div>
                     <div className="enteteBtn">
                         <Link to="/CreationRestaurant"><button className="btn">Créer un restaurant</button></Link>
-                        <Link to="/CreationProduit"><button className="btn">Ajouter un produit</button></Link>
                     </div>
                 </div>
                 <div className="restaurantContainer">
@@ -72,8 +72,10 @@ export default function Home() {
                         <img src={`http://localhost:8000/${restaurant.image_illustration}`} alt="Image d'illustration du restaurant" />
                             <div>
                                 <h3>{restaurant.nom}</h3>
-                                <p>Adresse : {restaurant.adresse}</p>
-                                <p>horaires : {restaurant.horaires_ouverture}</p>
+                                    <ul className="detailRestaurant">
+                                    <li><strong>Adresse : {restaurant.adresse}</strong></li>
+                                    <li><strong>Horaires : {restaurant.horaires_ouverture}</strong></li>
+                                    </ul>
                             <div className="buttonContainer">
                                 <Link to={"/ModificationRestaurant/" + restaurant.id}><button className="btn">Modifier</button></Link>
                                 <button onClick={() => deleteButton(restaurant.id)} className="btn">Supprimer</button>
@@ -83,6 +85,7 @@ export default function Home() {
                         </div> 
                     ))}
                     </div>
+                    {/* <Footer/> */}
             </div>
     );
 }
