@@ -6,6 +6,7 @@ import ModifRestaurant from '../pages/restaurant/gestion/modification/ModifResta
 import Home from './home/Home.jsx';
 import CreationProduit from './Produit/CreationProduit.jsx';
 import CarteRestaurant from './restaurant/Carte/CarteRestaurant.jsx';
+import CarteClient from './Client/CarteClient/CarteClient.jsx';
 
 
 const router = createBrowserRouter ([
@@ -34,8 +35,12 @@ const router = createBrowserRouter ([
         element: <CreationProduit />
     },
     {
-        path: 'CarteRestaurant/:id/produits',
+        path: '/CarteRestaurant/:id/produits',
         element: <CarteRestaurant />
+    },
+    {
+        path: '/CarteClient/:id/table/2',
+        element: <CarteClient />
     }
 ]);
 

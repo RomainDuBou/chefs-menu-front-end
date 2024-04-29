@@ -8,14 +8,16 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom"; 
 import { Link } from "react-router-dom";
 import QrCodeGenerator from "../../../composants/QRcode/QrCodeGenerator";
+import CarteClient from "../../Client/CarteClient/CarteClient";
+
 
 
 function CarteRestaurant() {
   const [produits, setProduits] = useState([]);
   const [restaurantNom, setRestaurantNom] = useState("");
+  const [numero_table, setNumero_table] = useState("");
   const { id } = useParams(); 
   const navigate = useNavigate();
-  
 
   useEffect(() => {
     const fetchProduits = async () => {
@@ -62,6 +64,28 @@ function CarteRestaurant() {
     fetchRestaurant();
   }, [id]); 
 
+  const assignTable = async (e) => {
+    e.preventDefault();
+
+      const tableData = new FormData();
+      tableData.append('numero_table', numero_table);
+    
+      try {
+        const response = await axiosClient.post(`/restaurants/${id}/tables`, tableData, {
+          withCredentials: true
+        });
+        if (response.status === 200) {
+          console.log("La carte client a été assignée à la table avec succès !");
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'assignation de la carte client à la table :", error);
+      }
+    }    
+  const handleTableChange = (event) => {
+    setNumero_table(event.target.value);
+  }
+  
+
   const produitsTries = produits.reduce((acc, produit) => {
     acc[produit.categorie] = acc[produit.categorie] || [];
     acc[produit.categorie].push(produit);
@@ -92,6 +116,12 @@ function CarteRestaurant() {
         <div className="underlineCarte"></div>
         <div className="enteteBtn">
           <Link to="/CreationProduit"><button className="btn">Ajouter un produit</button></Link>
+            <div className="tableBtn">
+              <form onSubmit={assignTable}>
+                <input type="number" value={numero_table} onChange={handleTableChange} placeholder="Numéro" />
+                <button type="submit" className="btn" onClick={assignTable}>Assigner une table</button>
+              </form>
+            </div>
           <BoutonRetour/>
         </div>
         {Object.entries(produitsTries).map(([categorie, produitsCategorie]) => (
@@ -120,7 +150,9 @@ function CarteRestaurant() {
           </div>
         ))}
       </main>
-      {/* <QrCodeGenerator/> */}
+      <Link to={`/CarteClient/${id}/table/2`}>
+        <button className="btn">Voir la carte</button>
+      </Link>
     </div>
   );
 }

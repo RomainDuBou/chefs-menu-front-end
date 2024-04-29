@@ -17,6 +17,22 @@
   justify-content: space-between;
 }
 
+.tableBtn {
+  display: flex;
+  gap: 10px;
+}
+
+.tableBtn input {
+  height: 35px;
+  width: 30%;
+  margin-left: 220px;
+}
+
+.tableBtn button {
+  white-space: nowrap;
+  height: 35px;
+}
+
 .underlineCarte {
   margin:  auto;
   background: #5b08a7;
