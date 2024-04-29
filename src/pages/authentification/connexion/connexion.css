@@ -1,0 +1,13 @@
+.resetBtn {
+    margin-top: 20px;
+    background: none;
+    border: none;
+    padding: 10px;
+    color: #5b08a7;
+}
+
+.resetBtn:hover {
+    color: #5b08a7;
+    border: 2px solid #5b08a7;
+    border-radius: 20px;
+}

@@ -54,6 +54,7 @@ input:focus {
     border-radius: 20px;
 }
 
+
 .btn-block {
     width: 100%;
 }
@@ -86,7 +87,9 @@ input:focus {
 .btn:hover,
 .btn:active,
 .btn:focus {
-    background: #5b08a7;
+    background: #fff;
+    color: #5b08a7;
+    border: 2px solid #5b08a7;
 }
 
 .text-center {

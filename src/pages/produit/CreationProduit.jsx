@@ -5,7 +5,8 @@ import "./CreationProduit.css"
 
 export default function CreationProduit() {
   const [nom, setNom] = useState("");
-  const [categorie, setCategorie] = useState("entree");
+  const [categorie, setCategorie] = useState("");
+  const [description, setDescription] = useState("");
   const [prix_HT, setPrix_HT] = useState("");
   const [taux_TVA, setTaux_TVA] = useState("");
   const [prix_TTC, setPrix_TTC] = useState(""); // Ajout du prix TTC
@@ -45,6 +46,7 @@ export default function CreationProduit() {
     const formData = new FormData();
     formData.append("nom", nom);
     formData.append("categorie", categorie);
+    formData.append("description", description);
     formData.append("prix_HT", prix_HT);
     formData.append("taux_TVA", taux_TVA);
     formData.append("prix_TTC", prixTTC); // Correction : utilisez prixTTC ici
@@ -88,11 +90,17 @@ export default function CreationProduit() {
               value={categorie}
               onChange={(e) => setCategorie(e.target.value)}
             >
-              <option value="entree">Entrée</option>
+              <option value="entrees">Entrée</option>
               <option value="plats">Plats</option>
               <option value="desserts">Desserts</option>
               <option value="boissons">Boissons</option>
             </select>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Description"
+              required
+            ></textarea>
             <input
               type="number"
               value={prix_HT}
@@ -104,7 +112,7 @@ export default function CreationProduit() {
               type="number"
               value={taux_TVA}
               onChange={(e) => setTaux_TVA(e.target.value)}
-              placeholder="Taux TVA"
+              placeholder="Taux TVA (En %)"
               required
             />
             {/* Affichage du prix TTC */}
@@ -112,7 +120,7 @@ export default function CreationProduit() {
               type="text"
               value={prix_TTC}
               readOnly
-              placeholder="Prix TTC"
+              placeholder="Prix TTC (Calculé automatiquement)"
             />
             <select
               value={selectedRestaurant}

@@ -29,8 +29,29 @@ function CarteRestaurant() {
     fetchProduits();
   }, [id]);
 
+  const assignTable = async (e) => {
+    e.preventDefault();
+
+      const tableData = new FormData();
+      tableData.append('numero_table', numero_table);
+    
+      try {
+        const response = await axiosClient.post(`/restaurants/${id}/tables`, tableData, {
+          withCredentials: true
+        });
+        if (response.status === 200) {
+          console.log("La carte client a été assignée à la table avec succès !");
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'assignation de la carte client à la table :", error);
+      }
+    }    
+  const handleTableChange = (event) => {
+    setNumero_table(event.target.value);
+  }
+
   // Définir l'ordre des catégories
-  const categoriesOrder = ["entree", "plats", "desserts", "boissons"];
+  const categoriesOrder = ["entrees", "plats", "desserts", "boissons"];
 
   // Triez les catégories et les produits par catégorie dans l'ordre spécifié
   const categories = categoriesOrder.filter((category) =>
@@ -75,8 +96,7 @@ function CarteRestaurant() {
                         </span>
                       </h3>
                       <p className="menu-item-desc">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Perferendis, voluptatem?
+                        {produit.description}
                       </p>
                     </div>
                   </div>
@@ -89,6 +109,7 @@ function CarteRestaurant() {
         {produits.map((produit) => (
           <QRCode
             key={produit.id}
+            className="qrCode"
             value={`https://votre-site.com/carte/${id}/${produit.id}`}
           />
         ))}

@@ -7,6 +7,7 @@ import CreationRestaurant from '../pages/restaurant/gestion/creation/CreationRes
 import ModificationRestaurant from './restaurant/gestion/modification/ModifRestaurant.jsx';
 import CreationProduit from './produit/CreationProduit.jsx';
 import CarteRestaurant from './restaurant/carte/CarteRestaurant.jsx';
+import ResetPassword from './authentification/connexion/ResetPassword.jsx';
 // import UserForm from './views/UserForm.jsx';
 
 const router = createBrowserRouter ([
@@ -41,6 +42,10 @@ const router = createBrowserRouter ([
     {
         path: 'CarteRestaurant/:id/produits',
         element: <CarteRestaurant />
+    },
+    {
+        path: '/reset-password', // Ajoutez la route pour ResetPassword
+        element: <ResetPassword />
     }
 ]);
 

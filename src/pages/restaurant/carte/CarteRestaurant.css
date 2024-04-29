@@ -1,9 +1,22 @@
 @import url("https://fonts.googleapis.com/css?family=Bree+Serif|Poppins|Source+Sans+Pro|Montserrat:400,900&display=swap");
 
+
 .containerCarte {
   max-width: 1200px;
   margin: 0 auto;
   padding: 1.5em;
+}
+
+.containerCarte h1 {
+  text-align: center;
+  margin: 5px;
+}
+
+.underlineCarte {
+  margin:  auto;
+  background: #5b08a7;
+  height: 3px;
+  width: 30%;
 }
 
 .menu {
@@ -12,16 +25,19 @@
 }
 
 .menu-group-heading {
-  margin: 0;
+  text-align: center;
+  margin-top: 50px;
   padding-bottom: 1em;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid #5b08a7;
 }
 
 .menu-group {
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5em;
-  padding: 1.5em 0;
+  padding: 1em;
 }
 
 .menu-item {
@@ -54,49 +70,9 @@
   line-height: 1.6;
 }
 
-.carteHeading {
-  position: relative;
-  padding: 0;
-  margin: 0;
-  font-family: "Raleway", sans-serif;
-  font-weight: 300;
-  font-size: 40px;
-  color: #080808;
-  -webkit-transition: all 0.4s ease 0s;
-  -o-transition: all 0.4s ease 0s;
-  transition: all 0.4s ease 0s;
-  text-align: center;
-  text-transform: uppercase;
-  padding-bottom: 5px;
+#carteBtn {
+  margin-top: 10px;
 }
-
-.carteHeading::before {
-    width: 28px;
-    height: 5px;
-    display: block;
-    content: "";
-    position: absolute;
-    bottom: 3px;
-    left: 50%;
-    margin-left: -14px;
-    background-color: #b80000;
-  }
-
-  .carteHeading::after {
-    width: 100px;
-    height: 1px;
-    display: block;
-    content: "";
-    position: relative;
-    margin-top: 25px;
-    left: 50%;
-    margin-left: -50px;
-    background-color: #b80000;
-  }
-
-  .nocarteP {
-    margin-top: 50px;
-  }
 
 @media screen and (min-width: 992px) {
   .menu {
@@ -111,4 +87,8 @@
     width: 125px;
     height: 125px;
   }
+}
+
+.qrCode {
+  margin-top: 50px;
 }
